@@ -6,7 +6,7 @@
 
 body {
   min-height: 100vh;
-  font-family: "system-ui", Arial, sans-serif;
+  /* font-family: "system-ui", Arial, sans-serif; */
   background: linear-gradient(135deg, #232526 0%, #414345 100%);
   color: #f9f9f9;
 }
