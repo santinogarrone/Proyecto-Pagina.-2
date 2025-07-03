@@ -56,6 +56,10 @@ function cargarPersonajes(pagina = 1) {
               : "Desconocido"
           }</p>
         `;
+        tarjeta.addEventListener("click", (e) => {
+          if (e.target.classList.contains("star-fav")) return;
+          mostrarDetallePersonaje(personaje);
+        });
         seccionTarjetas.appendChild(tarjeta);
       });
       // agregar eventos a las estrellitas
@@ -190,3 +194,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
   mensajeNoEncontrado.style.display = hayCoincidencias ? "none" : "block";
 });
+function mostrarDetallePersonaje(personaje) {
+  const modal = document.createElement("div");
+  modal.className = "modal";
+  modal.innerHTML = `
+    <div class="modal-contenido">
+      <span class="cerrar-modal">&times;</span>
+      <img src="${personaje.image}" alt="${personaje.name}" />
+      <h2>${personaje.name}</h2>
+      <p><strong>Estado:</strong> ${personaje.status}</p>
+      <p><strong>Especie:</strong> ${personaje.species}</p>
+      <p><strong>Tipo:</strong> ${personaje.type || "No especificado"}</p>
+      <p><strong>Género:</strong> ${personaje.gender}</p>
+      <p><strong>Origen:</strong> ${personaje.origin.name}</p>
+      <p><strong>Ubicación actual:</strong> ${personaje.location.name}</p>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector(".cerrar-modal").addEventListener("click", () => {
+    modal.remove();
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
+}
