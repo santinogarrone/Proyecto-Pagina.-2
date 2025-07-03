@@ -1,5 +1,5 @@
 const seccionTarjetas = document.getElementById("cards-section");
-import "./style.css";
+import "../public/style.css";
 function cargarFavoritos() {
   const favoritos = JSON.parse(localStorage.getItem("favoritosRM")) || [];
   seccionTarjetas.innerHTML = "";
