@@ -5,7 +5,6 @@ const selectOrden = document.getElementById("ordenar-options");
 const barraBusqueda = document.getElementById("search-bar");
 let estadoActual = "";
 let ordenActual = "az";
-import "../src/style.css";
 // esta función obtiene los personajes de la API de Rick y Morty segun la pagina,
 // y los muestra como cards. si hay algún error muestra un mensaje.
 
