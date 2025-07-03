@@ -95,6 +95,7 @@ function renderizarPaginacion(totalPaginas) {
     paginacion.style.justifyContent = "center";
     paginacion.style.gap = "1rem";
     paginacion.style.margin = "2rem 0";
+    paginacion.style.alignItems = "center";
     seccionTarjetas.parentNode.appendChild(paginacion);
   }
   paginacion.innerHTML = "";
@@ -105,6 +106,7 @@ function renderizarPaginacion(totalPaginas) {
     if (paginaActual > 1) {
       paginaActual--;
       cargarPersonajes(paginaActual);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
   paginacion.appendChild(btnAnterior);
@@ -120,10 +122,22 @@ function renderizarPaginacion(totalPaginas) {
     if (paginaActual < totalPaginas) {
       paginaActual++;
       cargarPersonajes(paginaActual);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
   paginacion.appendChild(btnSiguiente);
+  const btnSubir = document.createElement("button");
+  btnSubir.title = "Ir arriba";
+  btnSubir.style.fontSize = "1.5rem";
+  btnSubir.style.padding = "0 0.5rem";
+  btnSubir.style.cursor = "pointer";
+  btnSubir.textContent = "↑"; // símbolo de flecha hacia arriba
+  btnSubir.onclick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll suave arriba
+  };
+  paginacion.appendChild(btnSubir);
 }
+
 selectFiltro.addEventListener("change", () => {
   estadoActual = selectFiltro.value;
   paginaActual = 1; //cuando cambio de estado para filtrar, reinicia a la pagina 1
