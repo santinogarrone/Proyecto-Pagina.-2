@@ -1,8 +1,14 @@
 const seccionTarjetas = document.getElementById("cards-section");
-import "./style.css";
+
+document.addEventListener("DOMContentLoaded", cargarFavoritos);
+
 function cargarFavoritos() {
-  const favoritos = JSON.parse(localStorage.getItem("favoritosRM")) || [];
+  const favoritos = (
+    JSON.parse(localStorage.getItem("favoritosRM")) || []
+  ).filter((id) => !isNaN(parseInt(id)));
+
   seccionTarjetas.innerHTML = "";
+
   let contenedorReset = document.getElementById("contenedor-reset-fav");
   const contenedorPadre = seccionTarjetas.parentNode;
 
@@ -13,11 +19,12 @@ function cargarFavoritos() {
     contenedorReset.style.margin = "1rem 0";
     contenedorPadre.appendChild(contenedorReset);
   }
+
   contenedorReset.innerHTML = "";
 
   if (favoritos.length === 0) {
     seccionTarjetas.innerHTML = "<p>No tienes personajes favoritos.</p>";
-    contenedorReset.style.display = "none"; // Ocultar el botón si no hay favoritos
+    contenedorReset.style.display = "none";
     return;
   } else {
     contenedorReset.style.display = "block";
@@ -46,18 +53,16 @@ function cargarFavoritos() {
         seccionTarjetas.appendChild(tarjeta);
       });
 
-      // crear botón para resetear favoritos
       contenedorReset.innerHTML = `<button id="reset-favoritos-btn">Eliminar todos los favoritos</button>`;
-      const btnReset = document.getElementById("reset-favoritos-btn");
-      btnReset.addEventListener("click", () => {
-        localStorage.removeItem("favoritosRM");
-        cargarFavoritos();
-      });
+      document
+        .getElementById("reset-favoritos-btn")
+        .addEventListener("click", () => {
+          localStorage.removeItem("favoritosRM");
+          cargarFavoritos();
+        });
     })
     .catch(() => {
       seccionTarjetas.innerHTML = "<p>Error al cargar favoritos.</p>";
-      contenedorReset.style.display = "none"; //oculta el boton
+      contenedorReset.style.display = "none";
     });
 }
-
-document.addEventListener("DOMContentLoaded", cargarFavoritos);
